@@ -298,11 +298,11 @@ export function UserProfileModal({
 
               {/* Lifestyle */}
               {user.aiInsights.lifestyle && (
-                <div className="mb-5 p-4 bg-gradient-to-br from-amber-100/80 to-orange-100/80 dark:from-amber-900/30 dark:to-orange-900/30 rounded-xl border border-amber-300 dark:border-amber-700/50">
-                  <div className="text-sm font-bold text-amber-900 dark:text-amber-100 mb-2">
+                <div className="mb-4 p-3 bg-black/5 dark:bg-white/5 rounded-xl">
+                  <div className="text-xs font-semibold text-foreground mb-1">
                     Образ жизни
                   </div>
-                  <p className="text-sm text-amber-800 dark:text-amber-200 leading-relaxed">
+                  <p className="text-xs text-muted-foreground leading-relaxed">
                     {user.aiInsights.lifestyle}
                   </p>
                 </div>
@@ -310,11 +310,11 @@ export function UserProfileModal({
 
               {/* Personality */}
               {user.aiInsights.personality && (
-                <div className="p-4 bg-gradient-to-br from-orange-100/80 to-amber-100/80 dark:from-orange-900/30 dark:to-amber-900/30 rounded-xl border border-orange-300 dark:border-orange-700/50">
-                  <div className="text-sm font-bold text-amber-900 dark:text-amber-100 mb-2">
+                <div className="p-3 bg-gradient-to-br from-yellow-500/10 to-orange-500/10 rounded-xl">
+                  <div className="text-xs font-semibold text-foreground mb-1">
                     Личность (AI анализ)
                   </div>
-                  <p className="text-sm text-amber-800 dark:text-amber-200 leading-relaxed">
+                  <p className="text-xs text-muted-foreground leading-relaxed">
                     {user.aiInsights.personality}
                   </p>
                 </div>
