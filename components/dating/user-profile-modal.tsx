@@ -157,34 +157,37 @@ export function UserProfileModal({
 
           {/* AI Insights */}
           {user.aiInsights && (
-            <div className="mt-6 mb-8 bg-gradient-to-br from-yellow-500/10 via-amber-500/10 to-orange-500/10 border border-yellow-500/20 rounded-2xl p-5">
-              <div className="flex items-center gap-2 mb-4">
-                <div className="w-8 h-8 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center">
-                  <Sparkles className="w-4 h-4 text-white" />
+            <div className="mt-6 mb-8 bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-950/40 dark:to-orange-950/40 border-2 border-amber-200 dark:border-amber-700/50 rounded-2xl p-6 shadow-xl">
+              {/* Header */}
+              <div className="flex items-center gap-3 mb-5 pb-4 border-b-2 border-amber-200 dark:border-amber-700/40">
+                <div className="w-10 h-10 bg-gradient-to-br from-amber-400 to-orange-500 rounded-xl flex items-center justify-center shadow-lg">
+                  <Sparkles className="w-5 h-5 text-white" />
                 </div>
-                <h3 className="text-sm font-semibold text-foreground uppercase tracking-wide">
-                  AI Insights
-                </h3>
-                <span className="text-xs text-muted-foreground ml-auto">
-                  Анализ ML модели
-                </span>
+                <div className="flex-1">
+                  <h3 className="text-base font-bold text-amber-900 dark:text-amber-100">
+                    AI Insights
+                  </h3>
+                  <span className="text-xs text-amber-700 dark:text-amber-300">
+                    Анализ на основе данных VK
+                  </span>
+                </div>
               </div>
 
               {/* Music Genres */}
               {user.aiInsights.musicGenres &&
                 user.aiInsights.musicGenres.length > 0 && (
-                  <div className="mb-4">
-                    <div className="flex items-center gap-2 mb-2">
-                      <Music className="w-4 h-4 text-yellow-600 dark:text-yellow-400" />
-                      <span className="text-xs font-semibold text-foreground">
+                  <div className="mb-5">
+                    <div className="flex items-center gap-2 mb-3">
+                      <Music className="w-5 h-5 text-amber-600 dark:text-amber-400" />
+                      <span className="text-sm font-bold text-amber-900 dark:text-amber-100">
                         Музыкальные вкусы
                       </span>
                     </div>
-                    <div className="flex flex-wrap gap-1.5">
+                    <div className="flex flex-wrap gap-2">
                       {user.aiInsights.musicGenres.map((genre) => (
                         <span
                           key={genre}
-                          className="px-2.5 py-1 bg-yellow-500/20 text-yellow-700 dark:text-yellow-300 rounded-lg text-xs"
+                          className="px-3 py-1.5 bg-amber-100 dark:bg-amber-900/40 text-amber-800 dark:text-amber-200 rounded-lg text-xs font-medium border border-amber-200 dark:border-amber-700/50"
                         >
                           {genre}
                         </span>
@@ -192,8 +195,8 @@ export function UserProfileModal({
                     </div>
                     {user.aiInsights.favoriteArtists &&
                       user.aiInsights.favoriteArtists.length > 0 && (
-                        <div className="mt-1.5 text-xs text-muted-foreground">
-                          Слушает: {user.aiInsights.favoriteArtists.join(", ")}
+                        <div className="mt-2 text-sm text-amber-700 dark:text-amber-300">
+                          Слушает: <span className="font-medium">{user.aiInsights.favoriteArtists.join(", ")}</span>
                         </div>
                       )}
                   </div>
@@ -202,18 +205,18 @@ export function UserProfileModal({
               {/* Hobbies */}
               {user.aiInsights.hobbies &&
                 user.aiInsights.hobbies.length > 0 && (
-                  <div className="mb-4">
-                    <div className="flex items-center gap-2 mb-2">
-                      <Palette className="w-4 h-4 text-yellow-600 dark:text-yellow-400" />
-                      <span className="text-xs font-semibold text-foreground">
+                  <div className="mb-5">
+                    <div className="flex items-center gap-2 mb-3">
+                      <Palette className="w-5 h-5 text-orange-600 dark:text-orange-400" />
+                      <span className="text-sm font-bold text-amber-900 dark:text-amber-100">
                         Увлечения
                       </span>
                     </div>
-                    <div className="flex flex-wrap gap-1.5">
+                    <div className="flex flex-wrap gap-2">
                       {user.aiInsights.hobbies.map((hobby) => (
                         <span
                           key={hobby}
-                          className="px-2.5 py-1 bg-orange-500/20 text-orange-700 dark:text-orange-300 rounded-lg text-xs"
+                          className="px-3 py-1.5 bg-orange-100 dark:bg-orange-900/40 text-orange-800 dark:text-orange-200 rounded-lg text-xs font-medium border border-orange-200 dark:border-orange-700/50"
                         >
                           {hobby}
                         </span>
@@ -225,20 +228,20 @@ export function UserProfileModal({
               {/* Communities */}
               {user.aiInsights.communities &&
                 user.aiInsights.communities.length > 0 && (
-                  <div className="mb-4">
-                    <div className="flex items-center gap-2 mb-2">
-                      <Users className="w-4 h-4 text-yellow-600 dark:text-yellow-400" />
-                      <span className="text-xs font-semibold text-foreground">
+                  <div className="mb-5">
+                    <div className="flex items-center gap-2 mb-3">
+                      <Users className="w-5 h-5 text-amber-600 dark:text-amber-400" />
+                      <span className="text-sm font-bold text-amber-900 dark:text-amber-100">
                         Сообщества VK
                       </span>
                     </div>
-                    <div className="flex flex-wrap gap-1.5">
+                    <div className="flex flex-wrap gap-2">
                       {user.aiInsights.communities
                         .slice(0, 4)
                         .map((community) => (
                           <span
                             key={community}
-                            className="px-2.5 py-1 bg-amber-500/20 text-amber-700 dark:text-amber-300 rounded-lg text-xs"
+                            className="px-3 py-1.5 bg-yellow-100 dark:bg-yellow-900/40 text-yellow-800 dark:text-yellow-200 rounded-lg text-xs font-medium border border-yellow-200 dark:border-yellow-700/50"
                           >
                             {community}
                           </span>
@@ -250,18 +253,18 @@ export function UserProfileModal({
               {/* Movie Genres */}
               {user.aiInsights.movieGenres &&
                 user.aiInsights.movieGenres.length > 0 && (
-                  <div className="mb-4">
-                    <div className="flex items-center gap-2 mb-2">
-                      <Film className="w-4 h-4 text-yellow-600 dark:text-yellow-400" />
-                      <span className="text-xs font-semibold text-foreground">
+                  <div className="mb-5">
+                    <div className="flex items-center gap-2 mb-3">
+                      <Film className="w-5 h-5 text-amber-600 dark:text-amber-400" />
+                      <span className="text-sm font-bold text-amber-900 dark:text-amber-100">
                         Любимое кино
                       </span>
                     </div>
-                    <div className="flex flex-wrap gap-1.5">
+                    <div className="flex flex-wrap gap-2">
                       {user.aiInsights.movieGenres.map((genre) => (
                         <span
                           key={genre}
-                          className="px-2.5 py-1 bg-yellow-500/20 text-yellow-700 dark:text-yellow-300 rounded-lg text-xs"
+                          className="px-3 py-1.5 bg-amber-100 dark:bg-amber-900/40 text-amber-800 dark:text-amber-200 rounded-lg text-xs font-medium border border-amber-200 dark:border-amber-700/50"
                         >
                           {genre}
                         </span>
@@ -273,18 +276,18 @@ export function UserProfileModal({
               {/* Travel Destinations */}
               {user.aiInsights.travelDestinations &&
                 user.aiInsights.travelDestinations.length > 0 && (
-                  <div className="mb-4">
-                    <div className="flex items-center gap-2 mb-2">
-                      <MapPinned className="w-4 h-4 text-yellow-600 dark:text-yellow-400" />
-                      <span className="text-xs font-semibold text-foreground">
+                  <div className="mb-5">
+                    <div className="flex items-center gap-2 mb-3">
+                      <MapPinned className="w-5 h-5 text-orange-600 dark:text-orange-400" />
+                      <span className="text-sm font-bold text-amber-900 dark:text-amber-100">
                         Хочет посетить
                       </span>
                     </div>
-                    <div className="flex flex-wrap gap-1.5">
+                    <div className="flex flex-wrap gap-2">
                       {user.aiInsights.travelDestinations.map((destination) => (
                         <span
                           key={destination}
-                          className="px-2.5 py-1 bg-orange-500/20 text-orange-700 dark:text-orange-300 rounded-lg text-xs"
+                          className="px-3 py-1.5 bg-orange-100 dark:bg-orange-900/40 text-orange-800 dark:text-orange-200 rounded-lg text-xs font-medium border border-orange-200 dark:border-orange-700/50"
                         >
                           {destination}
                         </span>
