@@ -54,16 +54,27 @@ class VKBridge {
     }
   }
 
-  async getAuthToken(): Promise<string | null> {
+  async getAuthToken(): Promise<{ token: string; scope: string } | null> {
     try {
+      const appId = parseInt(process.env.NEXT_PUBLIC_VK_APP_ID || '54382625');
+
+      console.log('🔑 Запрос VKWebAppGetAuthToken с app_id:', appId);
+
       const data = await bridge.send('VKWebAppGetAuthToken', {
-        app_id: parseInt(process.env.NEXT_PUBLIC_VK_APP_ID || '0'),
-        scope: 'friends,photos'
+        app_id: appId,
+        scope: 'wall,groups'
       });
-      return data.access_token;
+
+      console.log('✅ VKWebAppGetAuthToken успешно получен');
+      console.log('Token scope:', data.scope);
+
+      return {
+        token: data.access_token,
+        scope: data.scope
+      };
     } catch (error) {
-      console.error('Failed to get auth token:', error);
-      return null;
+      console.error('❌ Failed to get auth token:', error);
+      throw error;
     }
   }
 

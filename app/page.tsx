@@ -14,13 +14,26 @@ type Tab = "feed" | "likes" | "messages" | "profile"
 export default function DatingApp() {
   const [activeTab, setActiveTab] = useState<Tab>("feed")
   const [isOnboardingComplete, setIsOnboardingComplete] = useState<boolean | null>(null)
-  const { user, isLoading } = useAuth()
+  const { user, backendUser, accessToken, isLoading, isVKEnvironment, isNewUser } = useAuth()
 
   useEffect(() => {
     if (isLoading) return
-    const onboardingDone = localStorage.getItem("onboarding_complete")
-    setIsOnboardingComplete(onboardingDone === "true")
-  }, [isLoading])
+
+    // В VK окружении проверяем наличие токена
+    if (isVKEnvironment && !accessToken) {
+      // Токен отсутствует - пользователь будет перенаправлен AuthProvider'ом
+      return
+    }
+
+    // Если пользователь новый - показываем онбординг
+    // Если старый - проверяем localStorage
+    if (isNewUser) {
+      setIsOnboardingComplete(false)
+    } else {
+      const onboardingDone = localStorage.getItem("onboarding_complete")
+      setIsOnboardingComplete(onboardingDone === "true")
+    }
+  }, [isLoading, accessToken, isVKEnvironment, isNewUser])
 
   const handleOnboardingComplete = (data: {
     interests: string[]
