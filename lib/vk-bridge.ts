@@ -4,12 +4,20 @@ export interface VKUserInfo {
   id: number;
   first_name: string;
   last_name: string;
+  photo_100?: string;
   photo_200?: string;
+  photo_max_orig?: string;
   city?: {
+    id: number;
+    title: string;
+  };
+  country?: {
+    id: number;
     title: string;
   };
   bdate?: string;
-  sex?: number;
+  sex?: number; // 0 - not specified, 1 - female, 2 - male
+  timezone?: number;
 }
 
 class VKBridge {
@@ -33,11 +41,15 @@ class VKBridge {
     if (this.userInfo) return this.userInfo;
 
     try {
+      // VKWebAppGetUserInfo - получает данные пользователя без access_token
       const user = await bridge.send('VKWebAppGetUserInfo');
       this.userInfo = user as VKUserInfo;
+
+      console.log('✅ VKWebAppGetUserInfo успешно получен:', this.userInfo);
+
       return this.userInfo;
     } catch (error) {
-      console.error('Failed to get user info:', error);
+      console.error('❌ Failed to get user info:', error);
       return null;
     }
   }

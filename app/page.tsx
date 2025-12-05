@@ -7,38 +7,20 @@ import { MessagesScreen } from "@/components/dating/messages-screen"
 import { ProfileScreen } from "@/components/dating/profile-screen"
 import { BottomNav } from "@/components/dating/bottom-nav"
 import { OnboardingFlow } from "@/components/onboarding/onboarding-flow"
-import { vkBridge } from "@/lib/vk-bridge"
+import { useAuth } from "@/contexts/AuthContext"
 
 type Tab = "feed" | "likes" | "messages" | "profile"
 
 export default function DatingApp() {
   const [activeTab, setActiveTab] = useState<Tab>("feed")
   const [isOnboardingComplete, setIsOnboardingComplete] = useState<boolean | null>(null)
-  const [vkInitialized, setVkInitialized] = useState(false)
+  const { user, isLoading } = useAuth()
 
   useEffect(() => {
-    const initVK = async () => {
-      try {
-        if (vkBridge.isVKEnvironment()) {
-          await vkBridge.init()
-          const userInfo = await vkBridge.getUserInfo()
-          console.log('VK User Info:', userInfo)
-        }
-        setVkInitialized(true)
-      } catch (error) {
-        console.error('VK initialization error:', error)
-        setVkInitialized(true)
-      }
-    }
-
-    initVK()
-  }, [])
-
-  useEffect(() => {
-    if (!vkInitialized) return
+    if (isLoading) return
     const onboardingDone = localStorage.getItem("onboarding_complete")
     setIsOnboardingComplete(onboardingDone === "true")
-  }, [vkInitialized])
+  }, [isLoading])
 
   const handleOnboardingComplete = (data: {
     interests: string[]
@@ -69,7 +51,8 @@ export default function DatingApp() {
   }
 
   if (!isOnboardingComplete) {
-    return <OnboardingFlow userName="Алексей" onComplete={handleOnboardingComplete} />
+    const userName = user?.first_name || "Друг"
+    return <OnboardingFlow userName={userName} onComplete={handleOnboardingComplete} />
   }
 
   return (
