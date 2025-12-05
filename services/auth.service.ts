@@ -21,14 +21,16 @@ export interface VKAuthResponse {
     created_at: string;
     updated_at: string;
   };
-  is_new_user: boolean;
 }
 
 export class AuthService {
   /**
    * Авторизация через VK Mini App
    */
-  async vkAuth(vkParams: Record<string, string>, accessToken: string): Promise<VKAuthResponse> {
+  async vkAuth(
+    vkParams: Record<string, string>,
+    accessToken: string,
+  ): Promise<VKAuthResponse> {
     console.log("🔐 Отправка VK Auth запроса на бэкенд...");
     console.log("VK Params:", vkParams);
     console.log("Access Token:", accessToken.substring(0, 20) + "...");
@@ -38,7 +40,10 @@ export class AuthService {
       access_token: accessToken,
     };
 
-    const response = await apiClient.post<VKAuthResponse>("/auth/vk", requestData);
+    const response = await apiClient.post<VKAuthResponse>(
+      "/auth/vk",
+      requestData,
+    );
 
     // Сохраняем токен в localStorage
     apiClient.setAuthToken(response.token, response.expires_at);
@@ -74,7 +79,8 @@ export class AuthService {
    * Проверка авторизации
    */
   isAuthenticated(): boolean {
-    const token = typeof window !== "undefined" ? localStorage.getItem("auth_token") : null;
+    const token =
+      typeof window !== "undefined" ? localStorage.getItem("auth_token") : null;
     return token !== null && !apiClient.isTokenExpired();
   }
 }
