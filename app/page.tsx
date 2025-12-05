@@ -7,17 +7,38 @@ import { MessagesScreen } from "@/components/dating/messages-screen"
 import { ProfileScreen } from "@/components/dating/profile-screen"
 import { BottomNav } from "@/components/dating/bottom-nav"
 import { OnboardingFlow } from "@/components/onboarding/onboarding-flow"
+import { vkBridge } from "@/lib/vk-bridge"
 
 type Tab = "feed" | "likes" | "messages" | "profile"
 
 export default function DatingApp() {
   const [activeTab, setActiveTab] = useState<Tab>("feed")
   const [isOnboardingComplete, setIsOnboardingComplete] = useState<boolean | null>(null)
+  const [vkInitialized, setVkInitialized] = useState(false)
 
   useEffect(() => {
+    const initVK = async () => {
+      try {
+        if (vkBridge.isVKEnvironment()) {
+          await vkBridge.init()
+          const userInfo = await vkBridge.getUserInfo()
+          console.log('VK User Info:', userInfo)
+        }
+        setVkInitialized(true)
+      } catch (error) {
+        console.error('VK initialization error:', error)
+        setVkInitialized(true)
+      }
+    }
+
+    initVK()
+  }, [])
+
+  useEffect(() => {
+    if (!vkInitialized) return
     const onboardingDone = localStorage.getItem("onboarding_complete")
     setIsOnboardingComplete(onboardingDone === "true")
-  }, [])
+  }, [vkInitialized])
 
   const handleOnboardingComplete = (data: {
     interests: string[]

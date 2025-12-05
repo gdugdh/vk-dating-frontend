@@ -6,7 +6,8 @@
     "build": "next build",
     "dev": "next dev",
     "lint": "eslint .",
-    "start": "next start"
+    "start": "next start",
+    "deploy:vk": "npm run build && vk-miniapps deploy"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
@@ -38,6 +39,8 @@
     "@radix-ui/react-toggle-group": "1.1.1",
     "@radix-ui/react-tooltip": "1.1.6",
     "@vercel/analytics": "latest",
+    "@vkontakte/vk-bridge": "^2.15.10",
+    "@vkontakte/vkui": "^7.10.2",
     "autoprefixer": "^10.4.20",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
